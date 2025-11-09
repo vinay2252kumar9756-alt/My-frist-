@@ -1,0 +1,120 @@
+Assignment 2 - C programming 
+
+1. What do you mean by structures?
+2. What do you mean h array & pointers array?
+3. Compare two structures variables by using the comparison operator ( Not equal & equal).
+4. Perform an arithmetic operations on structures.
+
+
+Q.1
+#include <stdio.h>
+
+// Definition of a structure named 'Employee'
+struct Employee {
+    int id;          // Member 1
+    float salary;    // Member 2
+    char name;       // Member 3
+};
+
+int main() {
+    // Declaration of a structure variable
+    struct Employee emp1;
+
+    // Accessing and assigning values to members using the dot (.) operator
+    emp1.id = 101;
+    emp1.salary = 50000.50;
+    // Note: To store a full string name, char name[50]; should be used in the struct
+
+    printf("Employee ID: %d, Salary: %.2f\\n", emp1.id, emp1.salary);
+
+    return 0;
+}
+
+Q.2
+#include <stdio.h>
+
+int main() {
+    // --- Standard Array ---
+    // Stores integer values in contiguous memory
+    int standard_array = {10, 20, 30, 40, 50};
+
+    printf("--- Standard Array ---\\n");
+    printf("Value at index 0: %d\\n", standard_array[0]);
+
+    // --- Array of Pointers ---
+    // Stores the addresses of integers
+    int *pointer_array;
+    int a = 10, b = 20, c = 30;
+
+    pointer_array[0] = &a; // pointer_array[0] holds the address of 'a'
+    pointer_array[1] = &b; // pointer_array[1] holds the address of 'b'
+    pointer_array[2] = &c; // pointer_array[2] holds the address of 'c'
+
+    printf("\\n--- Array of Pointers ---\\n");
+    // We must dereference (*) the pointer array element to get the value
+    printf("Value stored in pointer_array[1]: %d\\n", *pointer_array[1]);
+
+    return 0;
+}
+Q.3
+#include <stdio.h>
+#include <stdbool.h>
+
+struct Point {
+    int x;
+    int y;
+};
+
+// Custom function to compare structure members
+bool comparePoints(struct Point p1, struct Point p2) {
+    // Check if all members are equal
+    if (p1.x == p2.x && p1.y == p2.y) {
+        return true; // They are equal
+    } else {
+        return false; // They are not equal
+    }
+}
+
+int main() {
+    struct Point pA = {10, 20};
+    struct Point pB = {10, 20};
+    struct Point pC = {30, 40};
+
+    // Using the custom function for 'equal' comparison
+    if (comparePoints(pA, pB)) {
+        printf("pA and pB are equal.\\n");
+    }
+
+    // Using the custom function for 'not equal' comparison
+    if (!comparePoints(pA, pC)) {
+        printf("pA and pC are not equal.\\n");
+    }
+
+    return 0;
+}
+Q.4
+#include <stdio.h>
+
+struct Vector {
+    int dx;
+    int dy;
+};
+
+int main() {
+    struct Vector v1 = {10, 5};
+    struct Vector v2 = {3, 2};
+    struct Vector result_vector;
+
+    // ERROR: This line is invalid C syntax
+    // result_vector = v1 + v2;
+
+    // Valid: Perform arithmetic on individual members using the dot (.) operator
+    result_vector.dx = v1.dx + v2.dx; // Addition of integer members
+    result_vector.dy = v1.dy - v2.dy; // Subtraction of integer members
+
+    printf("Vector 1: (%d, %d)\\n", v1.dx, v1.dy);
+    printf("Vector 2: (%d, %d)\\n", v2.dx, v2.dy);
+    printf("Result Vector (v1 - v2 applied to dy, v1 + v2 applied to dx): (%d, %d)\\n", result_vector.dx, result_vector.dy);
+
+    return 0;
+}
